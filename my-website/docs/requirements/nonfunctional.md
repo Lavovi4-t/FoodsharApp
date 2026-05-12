@@ -1,6 +1,6 @@
 ---
 title: "Нефункциональные требования"
-sidebar_position: 1
+sidebar_position: 2
 description: "Нефункциональные требования к системе FoodsharingApp"
 ---
 
