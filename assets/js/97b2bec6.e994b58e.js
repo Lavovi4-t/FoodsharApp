@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([["424"],{4472(e){e.exports=JSON.parse('{"name":"docusaurus-plugin-redoc","id":"FoodsharingAPI"}')}}]);
