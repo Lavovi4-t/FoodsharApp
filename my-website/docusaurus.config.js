@@ -114,6 +114,11 @@ const config = {
               docId: 'data-model/erd-diagram',
               label: 'ERD диаграмма',
             },
+            {
+              type: 'doc',
+              docId: 'data-model/entities',
+              label: 'Сущности и атрибуты',
+            },
           ],
         },
         {
@@ -155,9 +160,8 @@ const config = {
               to: '/docs/data-model/erd-diagram',
             },
             {
-            type: 'doc',
-            docId: 'data-model/entities',
-            label: 'Сущности и атрибуты',
+              label: 'Сущности и атрибуты',
+              to: '/docs/data-model/entities',
             },
             {
               label: 'API Reference',
