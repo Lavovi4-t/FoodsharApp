@@ -47,22 +47,8 @@ const config = {
         },
       },
     ],
-    [
-      'redocusaurus',
-      {
-        specs: [
-          {
-            id: 'FoodsharingAPI',
-            spec: 'api_specs/FoodsharingAPI.yaml',
-            route: '/api/',
-          },
-        ],
-        theme: {
-          primaryColor: '#2e8555',
-        },
-      },
-    ],
   ],
+  
 
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
