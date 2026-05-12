@@ -97,6 +97,28 @@ const config = {
               docId: 'requirements/nonfunctional',
               label: 'Нефункциональные требования',
             },
+            {
+              type: 'doc',
+              docId: 'requirements/use-case-diagram',
+              label: 'Use Case диаграмма',
+            },
+          ],
+        },
+        {
+          type: 'dropdown',
+          label: 'Модель данных',
+          position: 'left',
+          items: [
+            {
+              type: 'doc',
+              docId: 'data-model/erd-diagram',
+              label: 'ERD диаграмма',
+            },
+            {
+              type: 'doc',
+              docId: 'data-model/entities',
+              label: 'Сущности и атрибуты',
+            },
           ],
         },
         {
@@ -128,6 +150,14 @@ const config = {
             {
               label: 'Нефункциональные требования',
               to: '/docs/requirements/nonfunctional',
+            },
+            {
+              label: 'Use Case диаграмма',
+              to: '/docs/requirements/use-case-diagram',
+            },
+            {
+              label: 'ERD диаграмма',
+              to: '/docs/data-model/erd-diagram',
             },
             {
               label: 'API Reference',
