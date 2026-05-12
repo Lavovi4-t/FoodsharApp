@@ -2,6 +2,7 @@
 title: "Функциональные требования"
 sidebar_position: 1
 description: "Функциональные требования и сценарии использования FoodsharApp"
+hide_table_of_contents: true
 ---
 
 # Функциональные требования
