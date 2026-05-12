@@ -17,7 +17,7 @@
     "@akebifiky/remark-simple-plantuml": "^1.0.2",
     "@docusaurus/core": "3.10.1",
     "@docusaurus/faster": "3.10.1",
-    "@docusaurus/preset-classic": "3.10.1",
+    "@docusaurus/preset-classic": "^3.10.1",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
     "docusaurus-plugin-drawio": "^0.4.0",
