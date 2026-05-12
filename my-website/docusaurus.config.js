@@ -5,7 +5,7 @@ const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'FoodsharingApp',
+  title: 'FoodsharApp',
   tagline: 'Техническая документация фудшеринг приложения',
   favicon: 'img/favicon.ico',
 
@@ -47,8 +47,22 @@ const config = {
         },
       },
     ],
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            id: 'FoodsharingAPI',
+            spec: 'api_specs/FoodsharingAPI.yml',
+            route: '/api/',
+          },
+        ],
+        theme: {
+          primaryColor: '#2e8555',
+        },
+      },
+    ],
   ],
-  
 
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
@@ -69,7 +83,7 @@ const config = {
           label: 'Docs',
         },
         {
-          to: '/docs/api/api-reference',
+          to: '/docs/api/FoodsharingAPI',
           label: 'API',
           position: 'left',
         },
@@ -92,7 +106,7 @@ const config = {
             },
             {
               label: 'API Reference',
-              to: '/docs/api/api-reference',
+              to: '/docs/api/FoodsharingAPI',
             },
           ],
         },
