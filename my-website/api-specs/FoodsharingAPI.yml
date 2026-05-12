@@ -4,6 +4,7 @@ info:
   title: Foodsharing Application API
   description: |
     API для фудшеринг-приложения.
+  version: 1.0.0
 
 servers:
   - url: https://api.foodsharing.ru/v1
