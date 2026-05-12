@@ -5,7 +5,7 @@ const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'FoodsharApp',
+  title: 'FoodsharingApp',
   tagline: 'Техническая документация фудшеринг приложения',
   favicon: 'img/favicon.ico',
 
