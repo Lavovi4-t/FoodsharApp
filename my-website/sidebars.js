@@ -22,7 +22,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'API',
-      items: ['api/api-reference'],
+      items: ['api/FoodsharingAPI'],
     },
   ],
 };
