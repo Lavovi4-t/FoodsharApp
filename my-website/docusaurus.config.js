@@ -84,7 +84,7 @@ const config = {
         },
         {
           to: '/docs/api/FoodsharingAPI',
-          label: 'АПИ',
+          label: 'api',
           position: 'left',
         },
         {
