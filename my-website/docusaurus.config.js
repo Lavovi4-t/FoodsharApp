@@ -83,8 +83,25 @@ const config = {
           label: 'Docs',
         },
         {
-          to: '/docs/api/FoodsharingAPI',
-          label: 'api',
+          type: 'dropdown',
+          label: 'Требования',
+          position: 'left',
+          items: [
+            {
+              type: 'doc',
+              docId: 'requirements/functional',
+              label: 'Функциональные требования',
+            },
+            {
+              type: 'doc',
+              docId: 'requirements/nonfunctional',
+              label: 'Нефункциональные требования',
+            },
+          ],
+        },
+        {
+          to: '/api/',
+          label: 'API',
           position: 'left',
         },
         {
@@ -105,8 +122,16 @@ const config = {
               to: '/docs/intro',
             },
             {
+              label: 'Функциональные требования',
+              to: '/docs/requirements/functional',
+            },
+            {
+              label: 'Нефункциональные требования',
+              to: '/docs/requirements/nonfunctional',
+            },
+            {
               label: 'API Reference',
-              to: '/docs/api/FoodsharingAPI',
+              to: '/api/',
             },
           ],
         },
