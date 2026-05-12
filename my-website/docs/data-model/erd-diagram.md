@@ -2,242 +2,360 @@
 title: "ERD диаграмма"
 sidebar_position: 1
 description: "Диаграмма сущность-связь базы данных фудшеринг-приложения"
-hide_table_of_contents: true
 ---
 
 # Модель данных
 
 ## ERD диаграмма
 
-Диаграмма "Сущность-Связь" (Entity-Relationship Diagram) показывает структуру базы данных фудшеринг-приложения, связи между таблицами и их атрибуты.
+Диаграмма показывает структуру базы данных фудшеринг-приложения, связи между таблицами и их атрибуты.
+
+### Нотация
+
+| Обозначение | Значение |
+|-------------|----------|
+| `||--o{` | Один ко многим (один родитель, много детей) |
+| `||--||` | Один к одному |
+| `}o--||` | Ноль или один ко многим |
+
+### Диаграмма
 
 ```plantuml
 @startuml
 !theme plain
 
-' Настройки внешнего вида
-skinparam linetype ortho
-skinparam class {
-  BackgroundColor #F0F8FF
-  BorderColor #0066CC
-  ArrowColor #0066CC
-}
-skinparam entity {
-  BackgroundColor #E8F5E9
-  BorderColor #006600
-}
+title Физическая модель фудшеринг-приложения
 
-' Сущности базы данных
+' ========== СПРАВОЧНИКИ ==========
 
-entity "user" as user {
-  * id : BIGSERIAL <<PK>>
+entity "user_role" as user_role {
+  * id : SMALLINT
   --
-  * role_id : SMALLINT <<FK>>
-  * email : VARCHAR(255)
-  * phone : VARCHAR(20)
-  * password_hash : VARCHAR(255)
-  * first_name : VARCHAR(100)
-  * last_name : VARCHAR(100)
-  * avatar_url : TEXT
-  * rating : DECIMAL(3,2)
-  * total_views : INTEGER
-  * is_blocked : BOOLEAN
-  * is_deleted : BOOLEAN
-  * created_at : TIMESTAMP
-  * updated_at : TIMESTAMP
-  * deleted_at : TIMESTAMP
-}
-
-entity "listing" as listing {
-  * id : BIGSERIAL <<PK>>
-  --
-  * provider_id : BIGINT <<FK>>
-  * status_id : SMALLINT <<FK>>
-  * title : VARCHAR(200)
+  * code : VARCHAR(20)
+  * name : VARCHAR(50)
   * description : TEXT
-  * weight_quantity : VARCHAR(50)
-  * expiry_date : DATE
-  * address : TEXT
-  * latitude : DECIMAL(10,8)
-  * longitude : DECIMAL(11,8)
-  * available_from : TIME
-  * available_to : TIME
-  * available_now : BOOLEAN
-  * views_count : INTEGER
-  * created_at : TIMESTAMP
-  * updated_at : TIMESTAMP
+  * sort_order : SMALLINT
 }
 
 entity "listing_status" as listing_status {
-  * id : SMALLINT <<PK>>
+  * id : SMALLINT
   --
   * code : VARCHAR(20)
   * name : VARCHAR(50)
   * description : TEXT
   * sort_order : SMALLINT
-}
-
-entity "photo" as photo {
-  * id : BIGSERIAL <<PK>>
-  --
-  * listing_id : BIGINT <<FK>>
-  * url : TEXT
-  * sort_order : SMALLINT
-  * created_at : TIMESTAMP
-}
-
-entity "category" as category {
-  * id : SMALLINT <<PK>>
-  --
-  * code : VARCHAR(20)
-  * name : VARCHAR(50)
-  * description : TEXT
-  * sort_order : SMALLINT
-}
-
-entity "listing_category" as listing_category {
-  * listing_id : BIGINT <<PK, FK>>
-  * category_id : SMALLINT <<PK, FK>>
-}
-
-entity "booking" as booking {
-  * id : BIGSERIAL <<PK>>
-  --
-  * listing_id : BIGINT <<FK>>
-  * recipient_id : BIGINT <<FK>>
-  * status_id : SMALLINT <<FK>>
-  * booking_time : TIMESTAMP
-  * pickup_time : TIMESTAMP
-  * completed_at : TIMESTAMP
-  * cancelled_at : TIMESTAMP
-  * cancel_reason : TEXT
-  * created_at : TIMESTAMP
-  * updated_at : TIMESTAMP
 }
 
 entity "booking_status" as booking_status {
-  * id : SMALLINT <<PK>>
+  * id : SMALLINT
   --
   * code : VARCHAR(20)
   * name : VARCHAR(50)
   * description : TEXT
+  * sort_order : SMALLINT
 }
 
-entity "conversation" as conversation {
-  * id : BIGSERIAL <<PK>>
+entity "transaction_status" as transaction_status {
+  * id : SMALLINT
   --
-  * listing_id : BIGINT <<FK>>
-  * created_at : TIMESTAMP
-  * updated_at : TIMESTAMP
+  * code : VARCHAR(20)
+  * name : VARCHAR(50)
+  * description : TEXT
+  * sort_order : SMALLINT
 }
 
-entity "conversation_participant" as conversation_participant {
-  * conversation_id : BIGINT <<PK, FK>>
-  * user_id : BIGINT <<PK, FK>>
+entity "report_status" as report_status {
+  * id : SMALLINT
   --
-  * joined_at : TIMESTAMP
-  * last_read_at : TIMESTAMP
-  * unread_count : INTEGER
-}
-
-entity "message" as message {
-  * id : BIGSERIAL <<PK>>
-  --
-  * conversation_id : BIGINT <<FK>>
-  * sender_id : BIGINT <<FK>>
-  * text : TEXT
-  * reply_to_id : BIGINT <<FK>>
-  * is_read : BOOLEAN
-  * created_at : TIMESTAMP
-}
-
-entity "review" as review {
-  * id : BIGSERIAL <<PK>>
-  --
-  * booking_id : BIGINT <<FK>>
-  * reviewer_id : BIGINT <<FK>>
-  * reviewee_id : BIGINT <<FK>>
-  * rating : SMALLINT
-  * comment : TEXT
-  * is_edited : BOOLEAN
-  * created_at : TIMESTAMP
-  * updated_at : TIMESTAMP
-}
-
-entity "notification" as notification {
-  * id : BIGSERIAL <<PK>>
-  --
-  * user_id : BIGINT <<FK>>
-  * type_id : SMALLINT <<FK>>
-  * priority_id : SMALLINT <<FK>>
-  * title : VARCHAR(200)
-  * body : TEXT
-  * data : JSONB
-  * is_read : BOOLEAN
-  * created_at : TIMESTAMP
-  * read_at : TIMESTAMP
+  * code : VARCHAR(20)
+  * name : VARCHAR(50)
+  * description : TEXT
+  * sort_order : SMALLINT
 }
 
 entity "notification_type" as notification_type {
-  * id : SMALLINT <<PK>>
+  * id : SMALLINT
   --
-  * code : VARCHAR(20)
+  * code : VARCHAR(30)
   * name : VARCHAR(50)
   * description : TEXT
 }
 
 entity "notification_priority" as notification_priority {
-  * id : SMALLINT <<PK>>
+  * id : SMALLINT
   --
   * code : VARCHAR(20)
-  * name : VARCHAR(50)
-  * description : TEXT
+  * name : VARCHAR(30)
+  * priority_level : SMALLINT
 }
 
-entity "complaint" as complaint {
-  * id : BIGSERIAL <<PK>>
+' ========== ОСНОВНЫЕ СУЩНОСТИ ==========
+
+entity "user" as user {
+  * id : BIGSERIAL
   --
-  * complainant_id : BIGINT <<FK>>
-  * defendant_id : BIGINT <<FK>>
-  * listing_id : BIGINT <<FK>>
-  * reason : TEXT
-  * status : VARCHAR(20)
-  * resolved_by : BIGINT <<FK>>
-  * resolution_note : TEXT
-  * created_at : TIMESTAMP
-  * resolved_at : TIMESTAMP
+  * role_id : SMALLINT
+  * first_name : VARCHAR(100)
+  * last_name : VARCHAR(100)
+  * email : VARCHAR(255)
+  * phone : VARCHAR(20)
+  * password_hash : VARCHAR(255)
+  * avatar_url : TEXT
+  * rating : DECIMAL(3,2)
+  * total_deals : INTEGER
+  * is_blocked : BOOLEAN
+  * is_deleted : BOOLEAN
+  * deleted_at : TIMESTAMPTZ
+  * created_at : TIMESTAMPTZ
+  * updated_at : TIMESTAMPTZ
 }
 
-' Связи между таблицами
+entity "user_location" as user_location {
+  * user_id : BIGINT
+  --
+  * latitude : DECIMAL(10,8)
+  * longitude : DECIMAL(11,8)
+  * location_updated_at : TIMESTAMPTZ
+}
 
-user ||--o{ listing : "provides"
-listing_status ||--o{ listing : "has"
-listing ||--o{ photo : "contains"
-listing ||--o{ listing_category : "has"
-category ||--o{ listing_category : "assigned to"
+entity "listing" as listing {
+  * id : BIGSERIAL
+  --
+  * provider_id : BIGINT
+  * title : VARCHAR(200)
+  * description : TEXT
+  * address_region : VARCHAR(100)
+  * address_city : VARCHAR(100)
+  * address_street : VARCHAR(200)
+  * address_building : VARCHAR(20)
+  * address_apartment : VARCHAR(20)
+  * address_lat : DECIMAL(10,8)
+  * address_lon : DECIMAL(11,8)
+  * pickup_time : TIMESTAMPTZ
+  * portions : INTEGER
+  * portions_left : INTEGER
+  * status_id : SMALLINT
+  * is_deleted : BOOLEAN
+  * created_at : TIMESTAMPTZ
+  * updated_at : TIMESTAMPTZ
+}
 
-user ||--o{ booking : "makes as recipient"
-listing ||--o{ booking : "has"
-booking_status ||--o{ booking : "has"
+entity "photo" as photo {
+  * id : BIGSERIAL
+  --
+  * listing_id : BIGINT
+  * url : TEXT
+  * sort_order : SMALLINT
+  * created_at : TIMESTAMPTZ
+}
 
-listing ||--o{ conversation : "related to"
-conversation ||--o{ conversation_participant : "includes"
-user ||--o{ conversation_participant : "participates in"
-conversation ||--o{ message : "contains"
-user ||--o{ message : "sends"
-message ||--o|| message : "replies to"
+entity "booking" as booking {
+  * id : BIGSERIAL
+  --
+  * listing_id : BIGINT
+  * receiver_id : BIGINT
+  * provider_id : BIGINT
+  * portions_booked : INTEGER
+  * status_id : SMALLINT
+  * booking_time : TIMESTAMPTZ
+  * pickup_time : TIMESTAMPTZ
+  * updated_at : TIMESTAMPTZ
+}
 
-booking ||--o{ review : "generates"
-user ||--o{ review : "writes as reviewer"
-user ||--o{ review : "receives as reviewee"
+entity "booking_status_history" as booking_history {
+  * id : BIGSERIAL
+  --
+  * booking_id : BIGINT
+  * old_status_id : SMALLINT
+  * new_status_id : SMALLINT
+  * changed_by : BIGINT
+  * changed_at : TIMESTAMPTZ
+  * comment : TEXT
+}
 
-user ||--o{ notification : "receives"
-notification_type ||--o{ notification : "categorizes"
-notification_priority ||--o{ notification : "has"
+entity "listing_status_history" as listing_history {
+  * id : BIGSERIAL
+  --
+  * listing_id : BIGINT
+  * old_status_id : SMALLINT
+  * new_status_id : SMALLINT
+  * changed_by : BIGINT
+  * changed_at : TIMESTAMPTZ
+  * comment : TEXT
+}
 
-user ||--o{ complaint : "files as complainant"
-user ||--o{ complaint : "filed against as defendant"
-user ||--o{ complaint : "resolves as moderator"
-listing ||--o{ complaint : "reported"
+entity "transaction" as transaction {
+  * id : BIGSERIAL
+  --
+  * booking_id : BIGINT
+  * listing_id : BIGINT
+  * provider_id : BIGINT
+  * receiver_id : BIGINT
+  * pickup_confirmed_at : TIMESTAMPTZ
+  * provider_rated : BOOLEAN
+  * receiver_rated : BOOLEAN
+  * status_id : SMALLINT
+  * created_at : TIMESTAMPTZ
+}
+
+entity "review" as review {
+  * id : BIGSERIAL
+  --
+  * transaction_id : BIGINT
+  * from_user_id : BIGINT
+  * to_user_id : BIGINT
+  * rating : SMALLINT
+  * comment : TEXT
+  * created_at : TIMESTAMPTZ
+}
+
+entity "conversation" as conversation {
+  * id : BIGSERIAL
+  --
+  * listing_id : BIGINT
+  * created_at : TIMESTAMPTZ
+  * updated_at : TIMESTAMPTZ
+}
+
+entity "conversation_participant" as participant {
+  * id : BIGSERIAL
+  --
+  * conversation_id : BIGINT
+  * user_id : BIGINT
+  * joined_at : TIMESTAMPTZ
+  * last_read_at : TIMESTAMPTZ
+  * unread_count : INTEGER
+}
+
+entity "message" as message {
+  * id : BIGSERIAL
+  --
+  * conversation_id : BIGINT
+  * sender_id : BIGINT
+  * text : TEXT
+  * photo_url : TEXT
+  * is_read : BOOLEAN
+  * created_at : TIMESTAMPTZ
+}
+
+entity "report" as report {
+  * id : BIGSERIAL
+  --
+  * reporter_id : BIGINT
+  * target_user_id : BIGINT
+  * reason : TEXT
+  * status_id : SMALLINT
+  * moderator_id : BIGINT
+  * moderator_comment : TEXT
+  * created_at : TIMESTAMPTZ
+  * resolved_at : TIMESTAMPTZ
+}
+
+entity "block" as block {
+  * id : BIGSERIAL
+  --
+  * blocked_user_id : BIGINT
+  * blocked_by_user_id : BIGINT
+  * reason : TEXT
+  * duration_days : INTEGER
+  * expires_at : TIMESTAMPTZ
+  * created_at : TIMESTAMPTZ
+}
+
+entity "notification" as notification {
+  * id : BIGSERIAL
+  --
+  * user_id : BIGINT
+  * type_id : SMALLINT
+  * priority_id : SMALLINT
+  * title : VARCHAR(200)
+  * body : TEXT
+  * data : TEXT
+  * status : VARCHAR(20)
+  * sent_via : TEXT
+  * created_at : TIMESTAMPTZ
+  * sent_at : TIMESTAMPTZ
+}
+
+entity "notification_archive" as notification_archive {
+  * id : BIGINT
+  --
+  * user_id : BIGINT
+  * type_id : SMALLINT
+  * priority_id : SMALLINT
+  * title : VARCHAR(200)
+  * body : TEXT
+  * data : TEXT
+  * status : VARCHAR(20)
+  * sent_via : TEXT
+  * created_at : TIMESTAMPTZ
+  * sent_at : TIMESTAMPTZ
+  * archived_at : TIMESTAMPTZ
+}
+
+entity "user_rating_summary" as rating_summary {
+  * id : BIGSERIAL
+  --
+  * user_id : BIGINT
+  * period_type : VARCHAR(10)
+  * period_start : DATE
+  * period_end : DATE
+  * avg_rating : DECIMAL(3,2)
+  * reviews_count : INTEGER
+  * calculated_at : TIMESTAMPTZ
+}
+
+entity "user_stats_summary" as stats_summary {
+  * id : BIGSERIAL
+  --
+  * user_id : BIGINT
+  * period_type : VARCHAR(10)
+  * period_start : DATE
+  * period_end : DATE
+  * listings_count : INTEGER
+  * bookings_count : INTEGER
+  * completed_deals : INTEGER
+  * calculated_at : TIMESTAMPTZ
+}
+
+' ========== СВЯЗИ ==========
+
+user ||--o{ user_location
+user ||--o{ listing
+user ||--o{ booking
+user ||--o{ transaction
+user ||--o{ review
+user ||--o{ participant
+user ||--o{ message
+user ||--o{ report
+user ||--o{ block
+user ||--o{ notification
+user ||--o{ rating_summary
+user ||--o{ stats_summary
+
+user_role ||--o{ user
+
+listing ||--o{ photo
+listing ||--o{ booking
+listing ||--o{ conversation
+
+listing_status ||--o{ listing
+listing_status ||--o{ listing_history
+
+booking_status ||--o{ booking
+booking_status ||--o{ booking_history
+
+booking ||--|| transaction
+booking ||--o{ booking_history
+
+transaction ||--o{ review
+
+conversation ||--o{ participant
+conversation ||--o{ message
+
+report_status ||--o{ report
+
+notification_type ||--o{ notification
+notification_priority ||--o{ notification
 
 @enduml
